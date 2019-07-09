@@ -13,6 +13,7 @@ def dice_coef_loss(y_true, y_pred):
     return 1. - dice_coef(y_true, y_pred)
 
 def CLCI_Net(input_shape=(224, 176, 1), num_class=1):
+    # The row and col of input should be resized or cropped to an integer multiple of 16.
     inputs = Input(shape=input_shape)
 
     conv1 = conv_2_init(inputs, 32)
