@@ -108,7 +108,6 @@ def CLF_ASPP(conv5, conv1, conv2, conv3, conv4, input_shape):
 
 if __name__ == '__main__':
     import os
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     model = CLCI_Net()
     model.summary()
     model.compile(optimizer=Adam(lr=1e-4), loss=dice_coef_loss, metrics=[dice_coef])
