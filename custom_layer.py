@@ -97,7 +97,7 @@ class BilinearUpsampling(Layer):
                 input_shape[3])
 
     def call(self, inputs):
-        return K.tf.image.resize_bilinear(inputs, (int(inputs.shape[1] * self.upsampling[0]),
+        return tf.image.resize_bilinear(inputs, (int(inputs.shape[1] * self.upsampling[0]),
                                                    int(inputs.shape[2] * self.upsampling[1])))
 
     def get_config(self):
