@@ -80,12 +80,10 @@ class custom_concat(Layer):
 
 
 class BilinearUpsampling(Layer):
-    def __init__(self, upsampling=(2, 2), data_format=None, **kwargs):
-        super(BilinearUpsampling, self).__init__(**kwargs)
-        self.data_format = conv_utils.normalize_data_format(data_format)
-        self.upsampling = conv_utils.normalize_tuple(upsampling, 2, 'size')
-        self.input_spec = InputSpec(ndim=4)
-
+    def __init__(self, upsampling=(2, 2), **kwargs):
+        super(BilinearUpsampling, self).__init__(**kwargs)       
+        self.upsampling = upsampling
+        
     def compute_output_shape(self, input_shape):
         height = self.upsampling[0] * \
                  input_shape[1] if input_shape[1] is not None else None
@@ -100,11 +98,6 @@ class BilinearUpsampling(Layer):
         return tf.image.resize_bilinear(inputs, (int(inputs.shape[1] * self.upsampling[0]),
                                                    int(inputs.shape[2] * self.upsampling[1])))
 
-    def get_config(self):
-        config = {'size': self.upsampling,
-                  'data_format': self.data_format}
-        base_config = super(BilinearUpsampling, self).get_config()
-        return dict(list(base_config.items()) + list(config.items()))
 
 
 def concat_pool(conv, pool, filter_num, strides=(2, 2)):
